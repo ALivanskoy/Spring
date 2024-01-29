@@ -1,4 +1,4 @@
-package sh.alex.OnlineTesting;
+package sh.alex.OnlineTesting.Controllers;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import sh.alex.OnlineTesting.Model.Answer;
-import sh.alex.OnlineTesting.Model.Question;
+import sh.alex.OnlineTesting.Model.Tests.Question;
+import sh.alex.OnlineTesting.Model.Tests.Test;
+import sh.alex.OnlineTesting.Services.TestService;
 
-import java.util.List;
 
 @Controller
 @RequestMapping("/")
@@ -30,24 +30,21 @@ public class TestController {
     }
 
     @RequestMapping (value = "/test", method = RequestMethod.GET)
-    public ResponseEntity<String> getTestByPost () {
+    public ResponseEntity<Test> getTestByPost () {
 
-        return new ResponseEntity<>(testService.getTest().toString(), HttpStatus.OK);
+        return new ResponseEntity<>(testService.getTest(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/test", method = RequestMethod.POST)
-    public ResponseEntity<String> addQuestion(@RequestBody Question question) {
+    public ResponseEntity<Test> addQuestion(@RequestBody Question question) {
 
         if (question.getQuestion() == null ) throw new RuntimeException("Введённый вопрос пуст");
         if (question.getAnswers() == null) throw new RuntimeException("Ответы не предоставлены");
-        if (question.getAnswers() == null || question.getAnswers().isEmpty() ) throw new RuntimeException("Список ответов пуст");
+        if (question.getAnswers().isEmpty() ) throw new RuntimeException("Список ответов пуст");
 
         testService.getTest().addQuestion(question);
 
-        return new ResponseEntity<>(testService.getTest().toString(), HttpStatus.OK);
+        return new ResponseEntity<Test>(HttpStatus.CREATED);
     }
-
-
-
 
 }

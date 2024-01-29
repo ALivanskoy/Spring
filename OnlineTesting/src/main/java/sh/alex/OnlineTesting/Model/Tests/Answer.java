@@ -1,7 +1,4 @@
-package sh.alex.OnlineTesting.Model;
-
-
-import java.util.Objects;
+package sh.alex.OnlineTesting.Model.Tests;
 
 public class Answer {
 

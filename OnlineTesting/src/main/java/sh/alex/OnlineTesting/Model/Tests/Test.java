@@ -1,4 +1,4 @@
-package sh.alex.OnlineTesting.Model;
+package sh.alex.OnlineTesting.Model.Tests;
 
 
 import java.util.ArrayList;
