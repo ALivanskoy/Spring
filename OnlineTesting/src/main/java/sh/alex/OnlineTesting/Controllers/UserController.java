@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,7 +22,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @RequestMapping (value = "/create", method = RequestMethod.POST)
+    @RequestMapping (value = "/create", method = RequestMethod.GET)
     public ResponseEntity<User> createUser  (@RequestParam Integer id, @RequestParam String firstName, @RequestParam String secondName) {
 
         User user = userService.createUser(id, firstName, secondName);
