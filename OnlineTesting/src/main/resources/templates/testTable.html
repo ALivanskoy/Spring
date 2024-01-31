@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Тестирование</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border: 1px solid black;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+<h2>
+    Список всех вопросов в тесте
+</h2>
+
+<table>
+    <thead>
+    <tr>
+        <th>Вопрос</th>
+        <th>Список ответов</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="question : ${questions}">
+        <td th:text="${question.text}"></td>
+        <td>
+            <ul>
+                <li th:each="answer : ${question.answers}" th:text="${answer}"></li>
+            </ul>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+
+</body>
+</html>

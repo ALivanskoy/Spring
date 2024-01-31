@@ -23,10 +23,10 @@ public class Test {
         questions.add(
                 new Question("Где плавает рыба?",
                         new ArrayList<Answer>(Arrays.asList(
-                                new Answer("в грунте", false),
-                                new Answer("по воздуху", false),
-                                new Answer("в воде", true),
-                                new Answer("рыба не плавает", false)
+                                new Answer("В грунте", false),
+                                new Answer("По воздуху", false),
+                                new Answer("В воде", true),
+                                new Answer("Рыба не плавает", false)
                         ))));
 
         questions.add(
