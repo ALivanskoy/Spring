@@ -1,5 +1,7 @@
-package sh.alex.OnlineTesting.Model.Tests;
+package sh.alex.onlineTesting.model.tests;
 
+
+import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -7,6 +9,7 @@ import java.util.List;
 import java.util.Objects;
 
 
+@Data
 public class Test {
 
     private List<Question> questions;
@@ -41,10 +44,6 @@ public class Test {
 
     public List<Question> getQuestions() {
         return questions;
-    }
-
-    public void setQuestions(List<Question> questions) {
-        this.questions = questions;
     }
 
     public void addQuestion(Question question) {

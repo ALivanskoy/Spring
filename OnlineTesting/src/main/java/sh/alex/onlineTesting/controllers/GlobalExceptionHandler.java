@@ -1,4 +1,4 @@
-package sh.alex.OnlineTesting.Controllers;
+package sh.alex.onlineTesting.controllers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

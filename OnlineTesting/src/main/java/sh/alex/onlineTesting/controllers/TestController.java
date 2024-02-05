@@ -1,4 +1,4 @@
-package sh.alex.OnlineTesting.Controllers;
+package sh.alex.onlineTesting.controllers;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,9 +9,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import sh.alex.OnlineTesting.Model.Tests.Question;
-import sh.alex.OnlineTesting.Model.Tests.Test;
-import sh.alex.OnlineTesting.Services.TestService;
+import sh.alex.onlineTesting.model.tests.Question;
+import sh.alex.onlineTesting.model.tests.Test;
+import sh.alex.onlineTesting.services.TestService;
 
 
 @Controller
@@ -47,7 +47,7 @@ public class TestController {
 
         model.addAttribute("questions", testService.getTest().getQuestions());
 
-        return "testTable";
+        return "tests/testTable";
     }
 
 }

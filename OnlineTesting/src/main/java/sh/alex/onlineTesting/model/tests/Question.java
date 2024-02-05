@@ -1,7 +1,10 @@
-package sh.alex.OnlineTesting.Model.Tests;
+package sh.alex.onlineTesting.model.tests;
+
+import lombok.Getter;
 
 import java.util.List;
 
+@Getter
 public class Question {
 
     //Текст вопроса
@@ -10,21 +13,10 @@ public class Question {
     //Список ответов
     private final List<Answer> answers;
 
-
     public Question(String text, List<Answer> answers) {
         this.text = text;
         this.answers = answers;
     }
-
-    public String getText() {
-        return text;
-    }
-
-    public List<Answer> getAnswers() {
-        return answers;
-    }
-
-
 
     @Override
     public String toString() {

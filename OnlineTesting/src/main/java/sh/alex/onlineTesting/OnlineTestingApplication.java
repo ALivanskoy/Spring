@@ -1,4 +1,4 @@
-package sh.alex.OnlineTesting;
+package sh.alex.onlineTesting;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

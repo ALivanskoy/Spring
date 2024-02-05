@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit User</title>
+</head>
+<body>
+<h1>Edit User</h1>
+<div>
+    <h2>Current User Details</h2>
+    <p>First Name: <span th:text="${user.firstName}"></span></p>
+    <p>Last Name: <span th:text="${user.secondName}"></span></p>
+</div>
+<div>
+    <h2>Edit User Details</h2>
+    <form action="/users/edit/{id}" method="POST">
+        <input type="hidden" id="id" name="id" th:value="${user.id}">
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" name="firstName" th:value="${user.firstName}">
+        <br>
+        <label for="secondName">Last Name:</label>
+        <input type="text" id="secondName" name="secondName" th:value="${user.secondName}">
+        <br>
+        <button type="submit">Save Changes</button>
+    </form>
+</div>
+</body>
+</html>
+

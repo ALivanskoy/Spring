@@ -1,5 +1,9 @@
-package sh.alex.OnlineTesting.Model.Tests;
+package sh.alex.onlineTesting.model.tests;
 
+
+import lombok.Getter;
+
+@Getter
 public class Answer {
 
     //Текст ответа
@@ -11,14 +15,6 @@ public class Answer {
     public Answer(String answer, Boolean isCorrect) {
         this.answer = answer;
         this.isCorrect = isCorrect;
-    }
-
-    public String getAnswer() {
-        return answer;
-    }
-
-    public Boolean getCorrect() {
-        return isCorrect;
     }
 
     @Override
