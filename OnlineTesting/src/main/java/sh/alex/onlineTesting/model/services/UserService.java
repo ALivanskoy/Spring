@@ -1,6 +1,6 @@
 package sh.alex.onlineTesting.model.services;
 
-import sh.alex.onlineTesting.model.users.User;
+import sh.alex.onlineTesting.model.entities.users.User;
 
 import java.util.List;
 

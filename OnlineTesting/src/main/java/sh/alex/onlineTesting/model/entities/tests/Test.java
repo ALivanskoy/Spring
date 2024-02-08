@@ -1,4 +1,4 @@
-package sh.alex.onlineTesting.model.tests;
+package sh.alex.onlineTesting.model.entities.tests;
 
 
 import lombok.Getter;

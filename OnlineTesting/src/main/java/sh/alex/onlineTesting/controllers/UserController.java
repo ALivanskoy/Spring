@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import sh.alex.onlineTesting.model.users.User;
+import sh.alex.onlineTesting.model.entities.users.User;
 import sh.alex.onlineTesting.model.services.UserService;
 
 import java.util.List;

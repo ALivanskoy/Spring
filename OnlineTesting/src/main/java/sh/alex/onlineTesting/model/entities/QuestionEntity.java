@@ -3,8 +3,7 @@ package sh.alex.onlineTesting.model.entities;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import sh.alex.onlineTesting.model.tests.Question;
-import sh.alex.onlineTesting.model.users.User;
+import sh.alex.onlineTesting.model.entities.tests.Question;
 
 @Data
 @Entity
@@ -22,10 +21,9 @@ public class QuestionEntity {
 
 
     public static QuestionEntity fromQuestion(Question question) {
+
         QuestionEntity questionEntity = new QuestionEntity();
-
-        questionEntity.setText(questionEntity.getText());
-
+        questionEntity.setText(question.getText());
         return questionEntity;
     }
 
@@ -33,6 +31,7 @@ public class QuestionEntity {
 
         Question question = new Question();
         question.setText(this.text);
+        question.setId(this.id);
 
         return question;
     }

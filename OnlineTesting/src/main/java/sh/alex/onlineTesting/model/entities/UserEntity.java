@@ -3,7 +3,7 @@ package sh.alex.onlineTesting.model.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import sh.alex.onlineTesting.model.users.User;
+import sh.alex.onlineTesting.model.entities.users.User;
 
 
 @Data

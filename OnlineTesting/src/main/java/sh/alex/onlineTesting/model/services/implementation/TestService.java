@@ -1,7 +1,7 @@
 package sh.alex.onlineTesting.model.services.implementation;
 
 import org.springframework.stereotype.Service;
-import sh.alex.onlineTesting.model.tests.Test;
+import sh.alex.onlineTesting.model.entities.tests.Test;
 
 @Service
 public class TestService {

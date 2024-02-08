@@ -3,8 +3,7 @@ package sh.alex.onlineTesting.model.entities;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import sh.alex.onlineTesting.model.tests.Answer;
-import sh.alex.onlineTesting.model.tests.Question;
+import sh.alex.onlineTesting.model.entities.tests.Answer;
 
 @Data
 @Entity
@@ -38,8 +37,10 @@ public class AnswerEntity {
     public Answer toAnswer () {
 
         Answer answer = new Answer();
+        answer.setId(this.id);
         answer.setText(this.answerText);
         answer.setCorrect(this.correct);
+        answer.setQuestionId(this.questionId);
 
         return answer;
     }

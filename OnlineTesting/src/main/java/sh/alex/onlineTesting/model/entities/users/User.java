@@ -1,9 +1,8 @@
-package sh.alex.onlineTesting.model.users;
+package sh.alex.onlineTesting.model.entities.users;
 
 import lombok.Data;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import sh.alex.onlineTesting.model.entities.UserEntity;
 
 import java.util.Objects;
 

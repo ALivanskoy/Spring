@@ -1,12 +1,13 @@
 package sh.alex.onlineTesting.model.services.implementation;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sh.alex.onlineTesting.model.entities.AnswerEntity;
+import sh.alex.onlineTesting.model.entities.tests.Answer;
 import sh.alex.onlineTesting.model.repository.AnswerRepository;
 import sh.alex.onlineTesting.model.services.AnswerService;
-import sh.alex.onlineTesting.model.tests.Answer;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,6 +16,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class AnswerServiceImp implements AnswerService {
 
+    @Autowired
     private final AnswerRepository repository;
 
 
@@ -30,12 +32,12 @@ public class AnswerServiceImp implements AnswerService {
     }
 
     @Override
-    @Transactional
-    public Answer create(String text, Boolean correct) {
+    public Answer create(Answer answer, Long questionId) {
 
-        Answer answer = new Answer(text, correct);
-        repository.saveAndFlush(AnswerEntity.fromAnswer(answer));
-        return answer;
+        AnswerEntity answerEntity = AnswerEntity.fromAnswer(answer);
+        answerEntity.setQuestionId(questionId);
+
+        return repository.saveAndFlush(answerEntity).toAnswer();
     }
 
 

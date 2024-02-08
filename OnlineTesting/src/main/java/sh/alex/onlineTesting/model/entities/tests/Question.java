@@ -1,4 +1,4 @@
-package sh.alex.onlineTesting.model.tests;
+package sh.alex.onlineTesting.model.entities.tests;
 
 
 import lombok.Getter;
@@ -10,6 +10,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class Question {
+
+    private Long id;
 
     //Текст вопроса
     private String text;
