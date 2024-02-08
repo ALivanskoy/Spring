@@ -9,6 +9,7 @@ import sh.alex.onlineTesting.model.services.UserService;
 import sh.alex.onlineTesting.model.users.User;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImp implements UserService {
@@ -36,22 +37,26 @@ public class UserServiceImp implements UserService {
 
     @Override
     public User getById(Long id) {
-        try {
-            return repository.getUserById(id).toUser();
-        } catch (Exception e) {
-            return null;
-        }
+
+        Optional<UserEntity> userEntityOptional = repository.findById(id);
+
+        return userEntityOptional.map(UserEntity::toUser).orElse(null);
     }
 
     @Override
     @Transactional
     public User update(Long id, User refreshUser) {
 
-        UserEntity userEntity = repository.findById(id).get();
+        Optional<UserEntity> userEntityOptional = repository.findById(id);
 
-        userEntity.setFirstName(refreshUser.getFirstName());
-        userEntity.setSecondName(refreshUser.getSecondName());
-        return repository.saveAndFlush(userEntity).toUser();
+        if(userEntityOptional.isPresent()) {
+
+            UserEntity userEntity = userEntityOptional.get();
+            userEntity.setFirstName(refreshUser.getFirstName());
+            userEntity.setSecondName(refreshUser.getSecondName());
+            return repository.saveAndFlush(userEntity).toUser();
+
+        } else return null;
     }
 
     @Override
