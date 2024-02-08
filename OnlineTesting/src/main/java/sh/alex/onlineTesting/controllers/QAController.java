@@ -42,8 +42,8 @@ public class QAController {
         else return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @PostMapping
-    public ResponseEntity<Question> postQuestion(@RequestBody Question question, @RequestBody List<Answer> answers) {
+    @PostMapping("/question")
+    public ResponseEntity<Long> postQuestion(@RequestBody Question question, @RequestBody List<Answer> answers) {
 
         final Long questionId;
 
@@ -52,6 +52,12 @@ public class QAController {
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
+        return new ResponseEntity<>(questionId, HttpStatus.OK);
+    }
+
+    @PostMapping("/answers/${questionId}")
+    public ResponseEntity<Long> postQuestion(@PathVariable Long questionId, @RequestBody List<Answer> answers) {
 
         try {
             answers.forEach(answer -> answerService.create(answer, questionId));
@@ -87,21 +93,14 @@ public class QAController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @DeleteMapping
-    public ResponseEntity<Question> deleteQuestion (@RequestBody Long id) {
-
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Question> deleteQuestion(@PathVariable Long id) {
         try {
             answerService.getByQuestionId(id).forEach(answer -> answerService.delete(answer.getId()));
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-        try {
             questionService.delete(id);
+            return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
