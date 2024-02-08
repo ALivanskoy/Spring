@@ -3,8 +3,8 @@ package sh.alex.onlineTesting.model.services.implementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import sh.alex.onlineTesting.model.repository.UserRepository;
 import sh.alex.onlineTesting.model.entities.UserEntity;
+import sh.alex.onlineTesting.model.repository.UserRepository;
 import sh.alex.onlineTesting.model.services.UserService;
 import sh.alex.onlineTesting.model.users.User;
 
@@ -17,7 +17,7 @@ public class UserServiceImp implements UserService {
 
 
     @Autowired
-    public UserServiceImp( UserRepository repository) {
+    public UserServiceImp(UserRepository repository) {
         this.repository = repository;
     }
 
