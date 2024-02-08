@@ -1,59 +1,51 @@
 package sh.alex.onlineTesting.model.tests;
 
 
-import lombok.Data;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import lombok.Getter;
 
 
-@Data
+import java.util.*;
+
+
+@Getter
 public class Test {
 
-    private List<Question> questions;
+    private Map<Question, List<Answer>> questions;
 
-    public Test(List<Question> questions) {
+    public Test(Map<Question, List<Answer>> questions) {
         this.questions = questions;
     }
 
     //Конструктор-рыба
     public Test() {
 
-        questions = new ArrayList<>();
+        this.questions = new HashMap<Question, List<Answer>>();
 
-        questions.add(
-                new Question("Где плавает рыба?",
+
+
+        questions.put(new Question("Где плавает рыба?"),
+
                         new ArrayList<Answer>(Arrays.asList(
                                 new Answer("В грунте", false),
                                 new Answer("По воздуху", false),
                                 new Answer("В воде", true),
                                 new Answer("Рыба не плавает", false)
-                        ))));
+                        )));
 
-        questions.add(
-                new Question("Какого цвета солнце?",
+        questions.put(
+                new Question("Какого цвета солнце?"),
                         new ArrayList<Answer>(Arrays.asList(
                                 new Answer("Красное", false),
                                 new Answer("Жёлтое", true),
                                 new Answer("Синее", false),
                                 new Answer("Солнце не имеет цвета, поскольку является объектом излучения волн всех диапозонов", true)
-                        ))));
+                        )));
     }
 
-    public List<Question> getQuestions() {
-        return questions;
+    public void addQuestion(Question question, List<Answer> answers) {
+        this.questions.put(question, answers);
     }
 
-    public void addQuestion(Question question) {
-        this.questions.add(question);
-    }
-
-    public void addQuestion(String questionText, List<Answer> answers) {
-        this.questions.add(
-                new Question( questionText, answers));
-    }
 
     @Override
     public boolean equals(Object o) {

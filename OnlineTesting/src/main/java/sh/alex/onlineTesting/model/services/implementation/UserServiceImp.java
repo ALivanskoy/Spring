@@ -1,10 +1,11 @@
-package sh.alex.onlineTesting.services;
+package sh.alex.onlineTesting.model.services.implementation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import sh.alex.onlineTesting.model.UserRepository;
+import sh.alex.onlineTesting.model.repository.UserRepository;
 import sh.alex.onlineTesting.model.entities.UserEntity;
+import sh.alex.onlineTesting.model.services.UserService;
 import sh.alex.onlineTesting.model.users.User;
 
 import java.util.List;
@@ -12,45 +13,39 @@ import java.util.List;
 @Service
 public class UserServiceImp implements UserService {
 
-    private final NotificationService notificationService;
-
     private final UserRepository repository;
 
 
     @Autowired
-    public UserServiceImp(NotificationService notificationService, UserRepository repository) {
-        this.notificationService = notificationService;
+    public UserServiceImp( UserRepository repository) {
         this.repository = repository;
     }
 
     @Override
-    public List<User> getAllUsers() {
+    public List<User> getAll() {
         return repository.findAll().stream().map(UserEntity::toUser).toList();
     }
 
     @Transactional
-    public User createUser(String firstName, String secondName) {
+    public User create(String firstName, String secondName) {
 
         User user = new User(firstName, secondName);
-
-        notificationService.notifyUser(user);
 
         return repository.saveAndFlush(UserEntity.fromUser(user)).toUser();
     }
 
     @Override
-    public User getUserById(Long id) {
+    public User getById(Long id) {
         try {
             return repository.getUserById(id).toUser();
         } catch (Exception e) {
-            notificationService.notify(e.getMessage());
             return null;
         }
     }
 
     @Override
     @Transactional
-    public User updateUser(Long id, User refreshUser) {
+    public User update(Long id, User refreshUser) {
 
         UserEntity userEntity = repository.findById(id).get();
 
@@ -60,7 +55,7 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public void deleteUser(Long id) {
+    public void delete(Long id) {
 
         if (repository.existsById(id)) {
             repository.deleteById(id);

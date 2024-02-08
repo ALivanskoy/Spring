@@ -1,24 +1,27 @@
 package sh.alex.onlineTesting.model.tests;
 
 
-import lombok.Getter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Getter
+@Data
+@NoArgsConstructor
 public class Answer {
 
     //Текст ответа
-    final private String answer;
+    private String text;
 
     //Является ли ответ верным
-    final private Boolean isCorrect;
+    private Boolean correct;
 
-    public Answer(String answer, Boolean isCorrect) {
-        this.answer = answer;
-        this.isCorrect = isCorrect;
+
+    public Answer(String text, Boolean correct) {
+        this.text = text;
+        this.correct = correct;
     }
 
     @Override
     public String toString() {
-        return answer;
+        return text;
     }
 }

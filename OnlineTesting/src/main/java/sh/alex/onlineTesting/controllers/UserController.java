@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import sh.alex.onlineTesting.model.users.User;
-import sh.alex.onlineTesting.services.UserService;
+import sh.alex.onlineTesting.model.services.UserService;
 
 import java.util.List;
 
@@ -27,7 +27,7 @@ public class UserController {
     @RequestMapping(method = RequestMethod.GET)
     public String getPage(Model model) {
 
-        List<User> users = userService.getAllUsers();
+        List<User> users = userService.getAll();
         model.addAttribute("users", users);
         return "users/users";
     }
@@ -40,21 +40,21 @@ public class UserController {
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String createUser(@RequestParam String firstName, @RequestParam String secondName) {
 
-        userService.createUser(firstName, secondName);
+        userService.create(firstName, secondName);
 
         return "redirect:/users";
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public String deleteUser(@PathVariable Long id) {
-        userService.deleteUser(id);
+        userService.delete(id);
         return "redirect:/users";
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
     public String editUser (@PathVariable Long id, Model model) {
 
-        User user = userService.getUserById(id);
+        User user = userService.getById(id);
         model.addAttribute("user", user);
         return "users/editUser";
     }
@@ -64,7 +64,7 @@ public class UserController {
 
         User user = new User(firstName, secondName);
 
-        userService.updateUser(id, user);
+        userService.update(id, user);
         return "redirect:/users";
     }
 

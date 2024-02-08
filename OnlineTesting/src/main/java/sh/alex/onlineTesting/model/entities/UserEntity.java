@@ -29,7 +29,6 @@ public class UserEntity {
     }
 
     public User toUser () {
-        User user = new User(this.id, this.firstName, this.secondName);
-        return user;
+        return new User(this.id, this.firstName, this.secondName);
     }
 }

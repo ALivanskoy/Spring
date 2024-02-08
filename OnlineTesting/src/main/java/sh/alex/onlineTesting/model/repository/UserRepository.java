@@ -1,15 +1,13 @@
-package sh.alex.onlineTesting.model;
+package sh.alex.onlineTesting.model.repository;
 
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 import sh.alex.onlineTesting.model.entities.UserEntity;
 
-import java.util.List;
-
-
+@Repository
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
-    public UserEntity getUserById (Long id);
+    public UserEntity getUserById(Long id);
 
-    public List<UserEntity> findAll();
 }
