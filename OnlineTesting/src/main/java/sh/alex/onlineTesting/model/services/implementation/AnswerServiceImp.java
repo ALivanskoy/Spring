@@ -2,6 +2,7 @@ package sh.alex.onlineTesting.model.services.implementation;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import sh.alex.onlineTesting.model.entities.AnswerEntity;
 import sh.alex.onlineTesting.model.repository.AnswerRepository;
 import sh.alex.onlineTesting.model.services.AnswerService;
@@ -29,6 +30,7 @@ public class AnswerServiceImp implements AnswerService {
     }
 
     @Override
+    @Transactional
     public Answer create(String text, Boolean correct) {
 
         Answer answer = new Answer(text, correct);
@@ -44,9 +46,10 @@ public class AnswerServiceImp implements AnswerService {
     }
 
     @Override
+    @Transactional
     public Answer update(Long id, Answer answer) {
 
-        Optional<AnswerEntity> answerEntityOptional  = repository.findById(id);
+        Optional<AnswerEntity> answerEntityOptional = repository.findById(id);
 
         if (answerEntityOptional.isPresent()) {
             AnswerEntity answerEntity = answerEntityOptional.get();
@@ -58,6 +61,7 @@ public class AnswerServiceImp implements AnswerService {
     }
 
     @Override
+    @Transactional
     public void delete(Long id) {
 
         if (repository.existsById(id)) {

@@ -60,6 +60,7 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
+    @Transactional
     public void delete(Long id) {
 
         if (repository.existsById(id)) {
