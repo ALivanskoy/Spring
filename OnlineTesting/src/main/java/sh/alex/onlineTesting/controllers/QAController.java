@@ -10,7 +10,9 @@ import sh.alex.onlineTesting.model.entities.tests.Question;
 import sh.alex.onlineTesting.model.services.AnswerService;
 import sh.alex.onlineTesting.model.services.QuestionService;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/qa")
@@ -33,17 +35,28 @@ public class QAController {
         else return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping("/${questionId}")
-    public ResponseEntity<List<Answer>> getAnswersById(@PathVariable Long questionId) {
+    @GetMapping("/question/{questionId}")
+    public ResponseEntity<Question> getQuestionById(@PathVariable Long questionId) {
 
-        List<Answer> answers = answerService.getByQuestionId(questionId);
+        try {
+            return new ResponseEntity<>(questionService.getById(questionId), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 
-        if (!answers.isEmpty()) return new ResponseEntity<>(answers, HttpStatus.OK);
-        else return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    @GetMapping("/answersfor/{questionId}")
+    public ResponseEntity<List<Answer>> getAnswersByQuestionId(@PathVariable Long questionId) {
+
+        try {
+            return new ResponseEntity<>(answerService.getByQuestionId(questionId), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @PostMapping("/question")
-    public ResponseEntity<Long> postQuestion(@RequestBody Question question, @RequestBody List<Answer> answers) {
+    public ResponseEntity<Long> postQuestion(@RequestBody Question question) {
 
         final Long questionId;
 
@@ -56,8 +69,8 @@ public class QAController {
         return new ResponseEntity<>(questionId, HttpStatus.OK);
     }
 
-    @PostMapping("/answers/${questionId}")
-    public ResponseEntity<Long> postQuestion(@PathVariable Long questionId, @RequestBody List<Answer> answers) {
+    @PostMapping("/question/{questionId}")
+    public ResponseEntity<Long> postAnswers(@PathVariable Long questionId, @RequestBody List<Answer> answers) {
 
         try {
             answers.forEach(answer -> answerService.create(answer, questionId));
@@ -68,24 +81,23 @@ public class QAController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PutMapping
-    public ResponseEntity<Question> putQuestion(@RequestBody Long questionId, @RequestBody Question question, @RequestBody List<Answer> answers) {
+    @PutMapping("/question/{questionId}")
+    public ResponseEntity<Question> putQuestion(@PathVariable Long questionId, @RequestBody Question question) {
 
         try {
             questionService.update(questionId, question);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
-        //Здесь идёт полная замена ответов, путём удаления старых и добавления новых, поскольку кол-во ответов может не совпадать
-        try {
-            answerService.getByQuestionId(questionId).forEach(answer -> answerService.delete(answer.getId()));
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    @PutMapping("/answer/{answerId}")
+    public ResponseEntity<Question> putAnswer(@RequestBody Long answerId, Answer answer) {
+
 
         try {
-            answers.forEach(answer -> answerService.create(answer, questionId));
+            answerService.update(answerId, answer);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -93,11 +105,21 @@ public class QAController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/question/{id}")
     public ResponseEntity<Question> deleteQuestion(@PathVariable Long id) {
         try {
             answerService.getByQuestionId(id).forEach(answer -> answerService.delete(answer.getId()));
             questionService.delete(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @DeleteMapping("/answer/{id}")
+    public ResponseEntity<Answer> deleteAnswer(@PathVariable Long id) {
+        try {
+            answerService.delete(id);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
