@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import sh.alex.onlineTesting.model.entities.users.User;
 
+import java.util.HashSet;
+
 
 @Data
 @Entity
@@ -29,6 +31,9 @@ public class UserEntity {
     }
 
     public User toUser () {
-        return new User(this.id, this.firstName, this.secondName);
+
+        User user = new User(this.firstName, this.secondName);
+        user.setId(this.id);
+        return user;
     }
 }

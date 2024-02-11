@@ -4,33 +4,32 @@ import lombok.Data;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
+
 public class User {
 
     private Long id;
 
-    private String firstName, secondName;
+    private String firstName, secondName, userName;
+
+    private Set<Role> roles;
+
+    public enum Role {
+        SUPERADMIN,
+        ADMIN,
+        USER
+    }
+
 
     public User(String firstName, String secondName) {
         this.firstName = firstName;
         this.secondName = secondName;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return id == user.id && Objects.equals(firstName, user.firstName) && Objects.equals(secondName, user.secondName);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, firstName, secondName);
+        this.roles = new HashSet<>();
     }
 
     @Override
