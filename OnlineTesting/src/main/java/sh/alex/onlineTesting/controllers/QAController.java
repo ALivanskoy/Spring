@@ -10,9 +10,8 @@ import sh.alex.onlineTesting.model.entities.tests.Question;
 import sh.alex.onlineTesting.model.services.AnswerService;
 import sh.alex.onlineTesting.model.services.QuestionService;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 
 @RestController
 @RequestMapping("/qa")
