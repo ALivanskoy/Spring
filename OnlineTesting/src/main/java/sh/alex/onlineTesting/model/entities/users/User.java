@@ -15,7 +15,7 @@ public class User {
 
     private Long id;
 
-    private String firstName, secondName, userName;
+    private String firstName, secondName, username;
 
     private Set<Role> roles;
 

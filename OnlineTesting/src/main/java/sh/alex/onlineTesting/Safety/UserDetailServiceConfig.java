@@ -31,4 +31,11 @@ public class UserDetailServiceConfig {
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+
+    @Bean
+    public UserDetailsService userDetailsService() {
+        return new JwtUserDetailsService();
+    }
+
 }
