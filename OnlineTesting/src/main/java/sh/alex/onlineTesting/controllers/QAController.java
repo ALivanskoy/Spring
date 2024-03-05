@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sh.alex.onlineTesting.model.entities.tests.Answer;
 import sh.alex.onlineTesting.model.entities.tests.Question;
+import sh.alex.onlineTesting.model.entities.tests.factory.AnswerFactory;
+import sh.alex.onlineTesting.model.entities.tests.factory.QuestionFactory;
 import sh.alex.onlineTesting.model.services.AnswerService;
 import sh.alex.onlineTesting.model.services.QuestionService;
 
@@ -24,6 +26,12 @@ public class QAController {
 
     @Autowired
     private final AnswerService answerService;
+
+    @Autowired
+    private final QuestionFactory questionFactory;
+
+    @Autowired
+    private final AnswerFactory answerFactory;
 
 
     @GetMapping
@@ -57,27 +65,26 @@ public class QAController {
 
     @PostMapping("/question")
     public ResponseEntity<Long> postQuestion(@RequestBody Question question) {
-
-        final Long questionId;
-
+        Long questionId;
         try {
-            questionId = questionService.create(question).getId();
+            Question createdQuestion = questionFactory.createQuestion(question.getText());
+            questionId = questionService.create(createdQuestion).getId();
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
         return new ResponseEntity<>(questionId, HttpStatus.OK);
     }
 
     @PostMapping("/question/{questionId}")
     public ResponseEntity<Long> postAnswers(@PathVariable Long questionId, @RequestBody List<Answer> answers) {
-
         try {
-            answers.forEach(answer -> answerService.create(answer, questionId));
+            answers.forEach(answer -> {
+                Answer createdAnswer = answerFactory.createAnswer(answer.getText(), answer.getCorrect());
+                answerService.create(createdAnswer, questionId);
+            });
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
